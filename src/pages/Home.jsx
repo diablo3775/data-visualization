@@ -42,6 +42,13 @@ const Home = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+   // Check authentication and redirect if not logged in
+   useEffect(() => {
+    if (!user) {
+      navigate(`/login?returnUrl=${encodeURIComponent(location.pathname + location.search)}`);
+    }
+  }, [user, navigate, location]);
+
   // Parse URL for filters
   useEffect(() => {
     const query = new URLSearchParams(location.search);
